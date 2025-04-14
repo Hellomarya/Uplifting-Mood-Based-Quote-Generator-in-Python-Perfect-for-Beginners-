@@ -1,0 +1,64 @@
+import tkinter as tk
+from tkinter import ttk
+import random
+
+# Quotes for different moods
+quotes = {
+    "Happy": [
+        "Happiness is a direction, not a place.",
+        "Stay positive, work hard, make it happen!"
+    ],
+    "Sad": [
+        "Even the darkest night will end and the sun will rise.",
+        "It’s okay to feel sad. Just don’t unpack and live there."
+    ],
+    "Tired": [
+        "Rest if you must, but don’t quit.",
+        "Fatigue is the best pillow."
+    ],
+    "Excited": [
+        "The future belongs to those who believe in the beauty of their dreams.",
+        "Your excitement is the spark of greatness!"
+    ],
+    "Anxious": [
+        "You’ve survived 100% of your worst days. You’ll survive this too.",
+        "Take a deep breath. You’re going to be okay."
+    ]
+}
+
+# Generate quote function
+def show_quote():
+    mood = mood_var.get()
+    if mood in quotes:
+        quote = random.choice(quotes[mood])
+        result_label.config(text=quote)
+    else:
+        result_label.config(text="Please select a mood.")
+
+# Setup GUI
+root = tk.Tk()
+root.title("Mood-Based Quote Generator")
+root.geometry("500x300")
+root.configure(bg="#f0f8ff")
+
+# Title
+title_label = tk.Label(root, text="💬 How Are You Feeling Today?", font=("Helvetica", 16, "bold"), bg="#f0f8ff")
+title_label.pack(pady=10)
+
+# Mood selection
+mood_var = tk.StringVar()
+mood_dropdown = ttk.Combobox(root, textvariable=mood_var, font=("Helvetica", 12), state="readonly")
+mood_dropdown["values"] = list(quotes.keys())
+mood_dropdown.set("Select your mood")
+mood_dropdown.pack(pady=10)
+
+# Generate button
+generate_button = tk.Button(root, text="Get Quote", font=("Helvetica", 12), command=show_quote, bg="#add8e6", fg="black", relief="groove")
+generate_button.pack(pady=10)
+
+# Quote result
+result_label = tk.Label(root, text="", font=("Helvetica", 12, "italic"), wraplength=400, justify="center", bg="#f0f8ff", fg="#333")
+result_label.pack(pady=20)
+
+# Run the app
+root.mainloop()
